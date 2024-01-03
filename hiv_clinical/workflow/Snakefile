@@ -55,6 +55,6 @@ rule collect_all_mutations:
     output:
         fname_all_mutations="results/all_mutations.csv",
     conda:
-        "envs/aln_stats.yaml"
+        "envs/collect_mutations.yaml"
     script:
         "./scripts/collect_mutations.py"
