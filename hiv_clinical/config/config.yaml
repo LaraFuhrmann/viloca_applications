@@ -4,7 +4,7 @@ vpipe:
       aligner: bwa
 
   input:
-      reference: "{VPIPE_BASEDIR}/../resources/hiv/HXB2.fasta"
+      reference: resources/HXB2.fasta
       datadir: resources/samples/
       read_length: 301
       samples_file: config/samples.tsv
