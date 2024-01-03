@@ -1,0 +1,19 @@
+vpipe:
+  general:
+      virus_base_config: ""
+      aligner: bwa
+
+  input:
+      reference: "{VPIPE_BASEDIR}/../resources/hiv/HXB2.fasta"
+      datadir: resources/samples/
+      read_length: 301
+      samples_file: config/samples.tsv
+      paired: true
+
+  output:
+      snv: false
+      local: false
+      global: false
+      visualization: false
+      QA: false
+      diversity: false
