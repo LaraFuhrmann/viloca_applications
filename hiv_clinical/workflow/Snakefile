@@ -30,7 +30,7 @@ rule run_viloca:
     input:
         fname_bam="results/{sample}/alignments/REF_aln.bam",
         fname_reference=config['vpipe']['input']['reference'],
-        fname_insert_bed=config['tiling_bed'],
+        #fname_insert_bed=config['tiling_bed'],
     output:
         fname_snv_vcf="results/{sample}/variants/snvs.vcf",
         fname_snv_csv="results/{sample}/variants/snvs.csv",
