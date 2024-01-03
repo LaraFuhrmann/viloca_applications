@@ -21,6 +21,7 @@ use rule * from vpipe as vpipe_*
 
 rule all:
     input:
+        rules.vpipe_all.input,
         "results/all_mutations.csv"
     default_target: True
 
