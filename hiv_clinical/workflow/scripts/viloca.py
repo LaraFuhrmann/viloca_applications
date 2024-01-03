@@ -26,7 +26,7 @@ def main(fname_bam, fname_reference, fname_insert_bed, fname_results_snv, fname_
             "--n_mfa_starts",
             str(n_mfa_starts),
             "-w",
-            "301", # Window size must be divisible by win_shifts, win_shifts=3
+            "300", # Window size must be divisible by win_shifts, win_shifts=3
             #"-z",
             #fname_insert_bed.resolve(),
             "--min_windows_coverage",
