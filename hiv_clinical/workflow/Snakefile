@@ -44,7 +44,7 @@ rule run_viloca:
         runtime=5760,
         threads=10,
     script:
-        "scripts/run_viloca.py"
+        "scripts/viloca.py"
 
 
 rule collect_all_mutations:
