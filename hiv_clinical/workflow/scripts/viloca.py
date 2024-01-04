@@ -29,6 +29,8 @@ def main(fname_bam, fname_reference, fname_results_snv, fname_results_csv, dname
             "300",
             "--win_coverage", # coverage threshold. Omit windows with low coverage
             "20",
+            "--min_windows_coverage",
+            "1",
         ],
         cwd=dname_work,
     )
