@@ -26,7 +26,9 @@ def main(fname_bam, fname_reference, fname_insert_bed, fname_results_snv, fname_
             "--n_mfa_starts",
             str(n_mfa_starts),
             "-w",
-            "300", 
+            "300",
+            "--win_coverage", # coverage threshold. Omit windows with low coverage
+            "20",
         ],
         cwd=dname_work,
     )
