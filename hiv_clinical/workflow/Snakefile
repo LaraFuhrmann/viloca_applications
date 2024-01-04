@@ -34,7 +34,7 @@ rule run_viloca:
         #fname_insert_bed=config['tiling_bed'],
     output:
         fname_snv_vcf="results/{sample}/variants/snvs.vcf",
-        fname_snv_csv="results/{sample}/variants/snvs.csv",
+        #fname_snv_csv="results/{sample}/variants/snvs.csv",
         fname_csv="results/{sample}/variants/cooccurring_mutations.csv",
         dname_work=directory(
             "results/{sample}/variants/"
