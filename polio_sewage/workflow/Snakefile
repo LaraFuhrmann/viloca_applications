@@ -50,7 +50,7 @@ rule run_viloca:
 
 rule collect_all_mutations:
     input:
-        fname_snv_list=expand("results/{replicate}/{passage}/variants/snvs.csv", replicate=list(df_samples['replicate']), passage=list(df_samples['passage'])),
+        fname_snv_list=expand("{dataset}/variants/snvs.vcf", dataset=vpipe.datasets),
     output:
         fname_all_mutations="results/all_mutations.csv",
     conda:
