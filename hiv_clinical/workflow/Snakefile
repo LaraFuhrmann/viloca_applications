@@ -42,9 +42,9 @@ rule run_viloca:
     conda:
         "envs/viloca.yaml"
     resources:
-        mem_mb=100000,
+        mem_mb=20000,
         runtime=5760,
-        threads=100,
+        threads=10,
     script:
         "scripts/run_viloca.py"
 
