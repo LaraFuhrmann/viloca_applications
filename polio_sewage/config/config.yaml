@@ -3,7 +3,7 @@ viloca:
 vpipe:
   general:
       virus_base_config: ""
-      aligner: minimap2
+      aligner: minimap
 
   input:
       reference: resources/polio_vp1.fasta
