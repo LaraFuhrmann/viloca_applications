@@ -6,9 +6,9 @@ def main(fname_bam, fname_reference, fname_insert_bed, fname_results_snv, fname_
     alpha = 0.000001
     n_max_haplotypes = 100
     n_mfa_starts = 1
-
+    print("before create direcotyr")
     dname_work.mkdir(parents=True, exist_ok=True)
-
+    print("before run viloca")
     subprocess.run(
         [
             "shorah",
