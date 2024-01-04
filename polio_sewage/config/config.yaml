@@ -1,0 +1,20 @@
+viloca:
+  tiling_bed: resources/vp1.bed
+vpipe:
+  general:
+      virus_base_config: ""
+      aligner: minimap2
+
+  input:
+      reference: resources/polio_vp1.fasta
+      datadir: resources/samples/
+      samples_file: config/samples.tsv
+      paired: false
+
+  output:
+      snv: false
+      local: false
+      global: false
+      visualization: false
+      QA: false
+      diversity: false

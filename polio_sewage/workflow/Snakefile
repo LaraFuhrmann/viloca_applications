@@ -1,0 +1,59 @@
+from snakemake.utils import Paramspace
+import yaml
+
+def load_config(path):
+    with open(path, 'r') as stream:
+        config = yaml.safe_load(stream)
+    return config
+
+import pandas as pd
+
+config = load_config("config/config.yaml")
+
+# setup paramspace
+df_samples = pd.read_csv(config["vpipe"]['input']['samples_file'], comment="#", sep="\t")
+
+module vpipe:
+    snakefile: github("cbg-ethz/V-pipe", path="workflow/Snakefile", tag="v3.0.0.pre0")
+    config: config["vpipe"]
+
+use rule * from vpipe as vpipe_*
+
+rule all:
+    input:
+        rules.vpipe_all.input,
+        "results/all_mutations.csv",
+    default_target: True
+
+
+rule run_viloca:
+    input:
+        fname_bam="results/{sample}/alignments/REF_aln.bam",
+        fname_reference=config['vpipe']['input']['reference'],
+        fname_insert_bed=config['viloca']['tiling_bed'],
+    output:
+        fname_snv_vcf="results/{sample}/variants/snvs.vcf",
+        #fname_snv_csv="results/{sample}/variants/snvs.csv",
+        fname_csv="results/{sample}/variants/cooccurring_mutations.csv",
+        dname_work=directory(
+            "results/{sample}/variants/"
+        ),
+    conda:
+        "envs/viloca.yaml"
+    resources:
+        mem_mb=60000,
+        runtime=5760,
+        threads=10,
+    script:
+        "scripts/viloca.py"
+
+
+rule collect_all_mutations:
+    input:
+        fname_snv_list=expand("results/{replicate}/{passage}/variants/snvs.csv", replicate=list(df_samples['replicate']), passage=list(df_samples['passage'])),
+    output:
+        fname_all_mutations="results/all_mutations.csv",
+    conda:
+        "envs/collect_mutations.yaml"
+    script:
+        "./scripts/collect_mutations.py"
