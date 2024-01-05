@@ -12,9 +12,13 @@ vpipe:
       paired: false
 
   output:
+      trim_primers: false
       snv: false
       local: false
       global: false
       visualization: false
       QA: false
       diversity: false
+
+  preprocessing:
+      extra: -ns_max_n 4 -min_qual_mean 20 -trim_qual_left 20 -trim_qual_right 20 -trim_qual_window 10
