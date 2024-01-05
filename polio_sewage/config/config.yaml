@@ -21,3 +21,6 @@ vpipe:
       visualization: false
       QA: false
       diversity: false
+
+  minimap_align:
+      preset: map-ont
