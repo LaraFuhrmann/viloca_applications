@@ -8,7 +8,7 @@ vpipe:
 
 
   input:
-      reference: resources/polio_vp1.fasta
+      reference: resources/polio_ref.fasta
       datadir: resources/samples/
       samples_file: config/samples.tsv
       paired: false
