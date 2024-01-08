@@ -14,7 +14,7 @@ config = load_config("config/config.yaml")
 df_samples = pd.read_csv(config["vpipe"]['input']['samples_file'], comment="#", sep="\t")
 
 module vpipe:
-    snakefile: github("cbg-ethz/V-pipe", path="workflow/Snakefile", tag="v3.0.0.pre0")
+    snakefile: "/cluster/project/pangolin/V-pipe-test/workflow/Snakefile" #github("cbg-ethz/V-pipe", path="workflow/Snakefile", tag="v3.0.0.pre0")
     config: config["vpipe"]
 
 use rule * from vpipe as vpipe_*
