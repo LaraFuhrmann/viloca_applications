@@ -8,7 +8,7 @@ vpipe:
       temp_prefix: /cluster/scratch/lfuhrmann/temp
 
   input:
-      reference: resources/sabin.fasta
+      reference: resources/polio_ref.fasta
       datadir: resources/samples/
       samples_file: config/samples.tsv
       paired: false
