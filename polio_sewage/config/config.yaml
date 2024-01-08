@@ -5,10 +5,10 @@ vpipe:
       virus_base_config: ""
       aligner: minimap
       preprocessor: skip
-
+      temp_prefix: /cluster/scratch/lfuhrmann/temp
 
   input:
-      reference: resources/polio_ref.fasta
+      reference: resources/sabin.fasta
       datadir: resources/samples/
       samples_file: config/samples.tsv
       paired: false
