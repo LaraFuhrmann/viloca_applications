@@ -21,8 +21,4 @@ CAP217_4200   SRR9588774 (112 weeks post-infection)
 CAP217_4180  SRR9588775  (87 weeks post-infection)
 
 
-TODO:
-- welche samples? Wuerde fuer's erste nur zwei machen.
-- samples file updaten
-- welche referenz
-- welcher aliner ?
+HXB2 Genome annotation are taken from https://www.hiv.lanl.gov/content/sequence/HIV/MAP/hxb2.xls ("resources/hxb2_genome_annoations.csv").
