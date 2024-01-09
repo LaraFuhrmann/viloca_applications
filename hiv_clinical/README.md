@@ -21,4 +21,7 @@ CAP217_4200   SRR9588774 (112 weeks post-infection)
 CAP217_4180  SRR9588775  (87 weeks post-infection)
 
 
-HXB2 Genome annotation are taken from https://www.hiv.lanl.gov/content/sequence/HIV/MAP/hxb2.xls ("resources/hxb2_genome_annoations.csv").
+Add samples from this publication:
+https://www.liebertpub.com/doi/10.1089/aid.2016.0151
+
+https://www.ebi.ac.uk/ena/browser/view/PRJNA320309

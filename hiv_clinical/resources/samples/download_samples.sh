@@ -17,4 +17,7 @@ cd ../
 fastq-dump -O week_112/raw_data --split-e  SRR9588774
 
 mv week_112/raw_data/SRR9588774_1.fastq week_112/raw_data/SRR9588774_R1.fastq
-mv week_112/raw_data/SRR9588774_2.fastq week_112/raw_data/SRR9588774_R2.fastq 
+mv week_112/raw_data/SRR9588774_2.fastq week_112/raw_data/SRR9588774_R2.fastq
+
+
+fastq-dump -O philippines/pX/raw_data --split-e  SRR3608622
