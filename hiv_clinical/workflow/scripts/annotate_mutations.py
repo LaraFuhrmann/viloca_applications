@@ -90,15 +90,17 @@ def main(fname_all_mutations, fname_hxb2_annotations, fname_genes, fname_all_mut
     f.close()
 
     def get_gene(position):
-        gene_list = []
+        drug_resistance_mutations_genes = ['CA', 'PR', 'RT', 'IN']
         for item in genes_hiv1:
             gene = item["abstractGene"]
-            postition_range = list(range(int(item["refRanges"][0][0]), int(item["refRanges"][0][1])))
-            if position in postition_range:
-                 gene_list.append(gene)
-        return gene_list
+            if gene in drug_resistance_mutations_genes:
+                postition_range = list(range(int(item["refRanges"][0][0]), int(item["refRanges"][0][1])))
+                if position in postition_range:
+                    return gene
+        return "error"
 
     df['gene'] = df["Pos"].apply(get_gene)
+    df['aa_position']
 
     df.to_csv(fname_all_mutations_annotated)
 
