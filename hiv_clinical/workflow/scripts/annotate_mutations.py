@@ -79,14 +79,17 @@ def main(fname_all_mutations, fname_hxb2_annotations, fname_genes, fname_all_mut
     df['AltCodon_f1'] = df.apply(get_AltCodon_f1, axis=1)
     df['AltAA_f1'] = df['AltCodon_f1'].apply(get_aa)
     df['RefAA_f1'] = df['RefCodon_f1'].apply(get_aa)
+    df['f1_IsSynonymous'] = df.apply(lambda row: 1 if row["AltCodon_f1"] == row["RefCodon_f1"] else 0, axis=1)
 
     df['AltCodon_f2'] = df.apply(get_AltCodon_f2, axis=1)
     df['AltAA_f2'] = df['AltCodon_f2'].apply(get_aa)
     df['RefAA_f2'] = df['RefCodon_f2'].apply(get_aa)
+    df['f2_IsSynonymous'] = df.apply(lambda row: 1 if row["AltCodon_f2"] == row["RefCodon_f2"] else 0, axis=1)
 
     df['AltCodon_f3'] = df.apply(get_AltCodon_f3, axis=1)
     df['AltAA_f3'] = df['AltCodon_f3'].apply(get_aa)
     df['RefAA_f3'] = df['RefCodon_f3'].apply(get_aa)
+    df['f3_IsSynonymous'] = df.apply(lambda row: 1 if row["AltCodon_f3"] == row["RefCodon_f3"] else 0, axis=1)
 
 
     # add column synonoums 0/1
