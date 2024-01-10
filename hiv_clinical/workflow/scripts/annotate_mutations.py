@@ -90,13 +90,13 @@ def main(fname_all_mutations, fname_hxb2_annotations, fname_genes, fname_all_mut
     f.close()
 
     def get_gene(position):
+        gene_list = []
         for item in genes_hiv1:
             gene = item["abstractGene"]
             postition_range = list(range(int(item["refRanges"][0][0]), int(item["refRanges"][0][1])))
             if position in postition_range:
-                return gene
-
-        return "error"
+                 gene_list.append(gene)
+        return gene_list
 
     df['gene'] = df["Pos"].apply(get_gene)
 
