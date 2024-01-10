@@ -61,7 +61,7 @@ def main(fname_all_mutations, fname_hxb2_annotations, fname_all_mutations_annota
     fname_muts = fname_all_mutations.split("snvs.vcf")[0]+"snv/SNVs_0.010000_final.csv"
 
     df_hiv_annotations = pd.read_csv(fname_hxb2_annotations)
-    df_muts = pd.read_csv(fname_all_mutations)
+    df_muts = pd.read_csv(fname_muts)
 
     df = pd.merge(df_muts, df_hiv_annotations, how="left", left_on="Pos", right_on="HXB2-Position")
 
