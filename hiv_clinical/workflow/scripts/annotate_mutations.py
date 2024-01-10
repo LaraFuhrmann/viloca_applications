@@ -3,6 +3,7 @@
 Script to annotate the mutation calls.
 """
 import pandas as pd
+import json
 
 genetic_code = {
         'ATA': 'I', 'ATC': 'I', 'ATT': 'I', 'ATG': 'M',
@@ -23,6 +24,8 @@ genetic_code = {
         'TGC': 'C', 'TGT': 'C', 'TGA': '*', 'TGG': 'W',
         'X': 'X', # x = no amino acid
     }
+
+
 
 def get_aa(codon):
     return genetic_code[codon.upper()]
@@ -54,8 +57,17 @@ def get_AltCodon_f3(row):
     altcodon = ''.join(altcodon)
     return altcodon
 
+def get_gene(position, genes_hiv1):
+    for item in genes_hiv1:
+        gene = item["abstractGene"]
+        postition_range = list(range(item["refRanges"][0]))
+        if position in postition_range:
+            return gene
 
-def main(fname_all_mutations, fname_hxb2_annotations, fname_all_mutations_annotated):
+    return "error"
+
+
+def main(fname_all_mutations, fname_hxb2_annotations, fname_genes, fname_all_mutations_annotated):
 
     fname_muts = fname_all_mutations.split("snvs.vcf")[0]+"snv/SNVs_0.010000_final.csv"
 
@@ -79,7 +91,11 @@ def main(fname_all_mutations, fname_hxb2_annotations, fname_all_mutations_annota
 
     # add column synonoums 0/1
     # add gene per position info with : https://github.com/hivdb/hivfacts/blob/main/data/genes_hiv1.yml
+    f = open('genes_hiv1.json')
+    genes_hiv1 = json.load(f)
+    f.close()
 
+    df['gene'] = df.apply(get_gene, axis=1)
 
     df.to_csv(fname_all_mutations_annotated)
 
@@ -89,5 +105,6 @@ if __name__ == "__main__":
     main(
         snakemake.input.fname_snv_vcf,
         snakemake.params.fname_hxb2_annotations,
+        snakemake.params.fname_genes,
         snakemake.output.fname_mutations_annotated,
     )
