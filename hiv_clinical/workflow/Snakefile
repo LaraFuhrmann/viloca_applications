@@ -54,7 +54,7 @@ rule annotate_mutations:
         fname_mutations_annotated="results/{sample}/variants/snvs.annotated.csv",
     params:
         fname_hxb2_annotations="resources/hxb2_genome_annoations.csv",
-        fname_genes="resources/genes_hiv1.yml"
+        fname_genes="resources/genes_hiv1.json"
     conda:
         "envs/collect_mutations.yaml"
     script:
