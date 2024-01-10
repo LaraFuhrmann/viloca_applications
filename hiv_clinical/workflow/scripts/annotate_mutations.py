@@ -28,7 +28,7 @@ def get_aa(codon):
     return genetic_code[codon.upper()]
 
 def get_AltCodon_f1(row):
-    codon_postion = row["CodonPosition_f1"] -1 # zero-based
+    codon_postion = int(row["CodonPosition_f1"] -1) # zero-based
     alt_base = row["Var"]
     refcodon = row["RefCodon_f1"]
     altcodon = list(refcodon)
@@ -37,7 +37,7 @@ def get_AltCodon_f1(row):
     return altcodon
 
 def get_AltCodon_f2(row):
-    codon_postion = row["CodonPosition_f2"] -1 # zero-based
+    codon_postion = int(row["CodonPosition_f2"] -1) # zero-based
     alt_base = row["Var"]
     refcodon = row["RefCodon_f2"]
     altcodon = list(refcodon)
@@ -46,14 +46,13 @@ def get_AltCodon_f2(row):
     return altcodon
 
 def get_AltCodon_f3(row):
-    codon_postion = row["CodonPosition_f3"] -1 # zero-based
+    codon_postion = int(row["CodonPosition_f3"] -1) # zero-based
     alt_base = row["Var"]
     refcodon = row["RefCodon_f3"]
     altcodon = list(refcodon)
     altcodon[codon_postion] = alt_base.lower()
     altcodon = ''.join(altcodon)
     return altcodon
-
 
 
 def main(fname_all_mutations, fname_hxb2_annotations, fname_all_mutations_annotated):
@@ -73,6 +72,11 @@ def main(fname_all_mutations, fname_hxb2_annotations, fname_all_mutations_annota
 
     df['AltCodon_f3'] = df.apply(get_AltCodon_f3, axis=1)
     df['AltAA_f3'] = df['AltCodon_f3'].apply(get_aa)
+
+
+    # add column synonoums 0/1
+    # add gene per position info with : https://github.com/hivdb/hivfacts/blob/main/data/genes_hiv1.yml
+
 
     df.to_csv(fname_all_mutations_annotated)
 
