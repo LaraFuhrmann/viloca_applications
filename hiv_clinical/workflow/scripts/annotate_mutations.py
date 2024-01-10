@@ -98,9 +98,9 @@ def main(fname_all_mutations, fname_hxb2_annotations, fname_genes, fname_all_mut
                 if position in postition_range:
                     aa_pos = (position - int(item["refRanges"][0][0])) % 3
                     return gene, aa_pos+1
-        return "error"
+        return "error", "error"
 
-    df['gene'], df['aa_position'] = df["Pos"].apply(get_gene)
+    df[['gene', 'aa_position']]  = df["Pos"].apply(get_gene).apply(pd.Series)
 
     df.to_csv(fname_all_mutations_annotated)
 
