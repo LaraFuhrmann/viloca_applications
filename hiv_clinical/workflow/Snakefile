@@ -47,9 +47,23 @@ rule run_viloca:
         "scripts/viloca.py"
 
 
+rule annotate_mutations:
+    input:
+        fname_snv_vcf="results/{sample}/variants/snvs.vcf",
+    output:
+        fname_mutations_annotated="results/{sample}/variants/snvs.annotated.csv",
+    params:
+        fname_hxb2_annotations="resources/hxb2_genome_annoations.csv",
+    conda:
+        "envs/collect_mutations.yaml"
+    script:
+        "./scripts/annotate_mutations.py"
+
+
 rule collect_all_mutations:
     input:
         fname_snv_list=expand("{dataset}/variants/snvs.vcf", dataset=vpipe.datasets),
+        fname_snv_annotated_list=expand("{dataset}/variants/snvs.annotated.csv", dataset=vpipe.datasets), # this is not being collected and summarized
     output:
         fname_all_mutations="results/all_mutations.csv",
     conda:

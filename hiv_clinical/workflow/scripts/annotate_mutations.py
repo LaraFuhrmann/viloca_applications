@@ -2,6 +2,7 @@
 """
 Script to annotate the mutation calls.
 """
+import pandas as pd
 
 genetic_code = {
         'ATA': 'I', 'ATC': 'I', 'ATT': 'I', 'ATG': 'M',
@@ -55,7 +56,9 @@ def get_AltCodon_f3(row):
 
 
 
-def main(fname_ref, fname_all_mutations, fname_hxb2_annotations, fname_all_mutations_annotated):
+def main(fname_all_mutations, fname_hxb2_annotations, fname_all_mutations_annotated):
+
+    fname_muts = str(fname_all_mutations.resolve()).split("snvs.vcf")[0]+"snv/SNVs_0.010000_final.csv"
 
     df_hiv_annotations = pd.read_csv(fname_hxb2_annotations)
     df_muts = pd.read_csv(fname_all_mutations)
@@ -77,8 +80,7 @@ def main(fname_ref, fname_all_mutations, fname_hxb2_annotations, fname_all_mutat
 
 if __name__ == "__main__":
     main(
-        snakemake.input.fname_ref,
         snakemake.input.fname_all_mutations,
         snakemake.params.fname_hxb2_annotations,
-        snakemake.output.fname_all_mutations_annotated,
+        snakemake.output.fname_mutations_annotated,
     )
