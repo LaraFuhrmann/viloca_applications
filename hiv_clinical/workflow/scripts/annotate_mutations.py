@@ -58,7 +58,7 @@ def get_AltCodon_f3(row):
 
 def main(fname_all_mutations, fname_hxb2_annotations, fname_all_mutations_annotated):
 
-    fname_muts = str(fname_all_mutations.resolve()).split("snvs.vcf")[0]+"snv/SNVs_0.010000_final.csv"
+    fname_muts = fname_all_mutations.split("snvs.vcf")[0]+"snv/SNVs_0.010000_final.csv"
 
     df_hiv_annotations = pd.read_csv(fname_hxb2_annotations)
     df_muts = pd.read_csv(fname_all_mutations)
