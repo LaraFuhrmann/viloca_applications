@@ -57,15 +57,6 @@ def get_AltCodon_f3(row):
     altcodon = ''.join(altcodon)
     return altcodon
 
-def get_gene(position, genes_hiv1):
-    for item in genes_hiv1:
-        gene = item["abstractGene"]
-        postition_range = list(range(item["refRanges"][0]))
-        if position in postition_range:
-            return gene
-
-    return "error"
-
 
 def main(fname_all_mutations, fname_hxb2_annotations, fname_genes, fname_all_mutations_annotated):
 
@@ -98,7 +89,16 @@ def main(fname_all_mutations, fname_hxb2_annotations, fname_genes, fname_all_mut
     genes_hiv1 = json.load(f)
     f.close()
 
-    df['gene'] = df.apply(get_gene, axis=1)
+    def get_gene(position):
+        for item in genes_hiv1:
+            gene = item["abstractGene"]
+            postition_range = list(range(item["refRanges"][0]))
+            if position in postition_range:
+                return gene
+
+        return "error"
+
+    df['gene'] = df["Pos"].apply(get_gene, axis=1)
 
     df.to_csv(fname_all_mutations_annotated)
 
