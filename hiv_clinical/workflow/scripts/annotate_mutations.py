@@ -80,7 +80,7 @@ def main(fname_all_mutations, fname_hxb2_annotations, fname_all_mutations_annota
 
 if __name__ == "__main__":
     main(
-        snakemake.input.fname_all_mutations,
+        snakemake.input.fname_snv_vcf,
         snakemake.params.fname_hxb2_annotations,
         snakemake.output.fname_mutations_annotated,
     )
