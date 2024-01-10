@@ -66,12 +66,15 @@ def main(fname_all_mutations, fname_hxb2_annotations, fname_all_mutations_annota
 
     df['AltCodon_f1'] = df.apply(get_AltCodon_f1, axis=1)
     df['AltAA_f1'] = df['AltCodon_f1'].apply(get_aa)
+    df['RefAA_f1'] = df['RefCodon_f1'].apply(get_aa)
 
     df['AltCodon_f2'] = df.apply(get_AltCodon_f2, axis=1)
     df['AltAA_f2'] = df['AltCodon_f2'].apply(get_aa)
+    df['RefAA_f2'] = df['RefCodon_f2'].apply(get_aa)
 
     df['AltCodon_f3'] = df.apply(get_AltCodon_f3, axis=1)
     df['AltAA_f3'] = df['AltCodon_f3'].apply(get_aa)
+    df['RefAA_f3'] = df['RefCodon_f3'].apply(get_aa)
 
 
     # add column synonoums 0/1
