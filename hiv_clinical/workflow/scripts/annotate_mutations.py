@@ -96,11 +96,11 @@ def main(fname_all_mutations, fname_hxb2_annotations, fname_genes, fname_all_mut
             if gene in drug_resistance_mutations_genes:
                 postition_range = list(range(int(item["refRanges"][0][0]), int(item["refRanges"][0][1])))
                 if position in postition_range:
-                    return gene
+                    aa_pos = (position - int(item["refRanges"][0][0])) % 3
+                    return gene, aa_pos+1
         return "error"
 
-    df['gene'] = df["Pos"].apply(get_gene)
-    df['aa_position']
+    df['gene'], df['aa_position'] = df["Pos"].apply(get_gene)
 
     df.to_csv(fname_all_mutations_annotated)
 
