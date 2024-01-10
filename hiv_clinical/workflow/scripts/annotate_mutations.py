@@ -94,7 +94,7 @@ def main(fname_all_mutations, fname_hxb2_annotations, fname_genes, fname_all_mut
 
     # add column synonoums 0/1
     # add gene per position info with : https://github.com/hivdb/hivfacts/blob/main/data/genes_hiv1.yml
-    f = open('genes_hiv1.json')
+    f = open(fname_genes)
     genes_hiv1 = json.load(f)
     f.close()
 
