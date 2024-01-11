@@ -22,7 +22,7 @@ use rule * from vpipe as vpipe_*
 rule all:
     input:
         rules.vpipe_all.input,
-        "results/all_mutations.csv"
+        "results/all_mutations.annotated.csv",
     default_target: True
 
 
@@ -61,12 +61,11 @@ rule annotate_mutations:
         "./scripts/annotate_mutations.py"
 
 
-rule collect_all_mutations:
+rule collect_annotated_mutations:
     input:
-        fname_snv_list=expand("{dataset}/variants/snvs.vcf", dataset=vpipe.datasets),
-        fname_snv_annotated_list=expand("{dataset}/variants/snvs.annotated.csv", dataset=vpipe.datasets), # this is not being collected and summarized
+        fnames_snv_csv=expand("{dataset}/variants/snvs.annotated.csv", dataset=vpipe.datasets),
     output:
-        fname_all_mutations="results/all_mutations.csv",
+        fname_all_mutations="results/all_mutations.annotated.csv",
     conda:
         "envs/collect_mutations.yaml"
     script:
