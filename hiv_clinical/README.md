@@ -21,6 +21,15 @@ CAP217_4200   SRR9588774 (112 weeks post-infection)
 CAP217_4180  SRR9588775  (87 weeks post-infection)
 
 
+The following samples could be also interesting, as we have samples very early after infection.
+
+CAP188: https://www.ncbi.nlm.nih.gov/sra/SRX6354620[accn]
+
+Multiplexed Illumina MiSeq of HIV: 4 weeks post-infection
+
+SRR9588828
+
+
 Add samples from this publication:
 https://www.liebertpub.com/doi/10.1089/aid.2016.0151
 
