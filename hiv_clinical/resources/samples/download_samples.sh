@@ -33,6 +33,10 @@ fastq-dump -O CAP188/week_237/raw_data --split-e  SRR9588837
 mv CAP188/week_237/raw_data/SRR9588837_1.fastq CAP188/week_237/raw_data/SRR9588837_R1.fastq
 mv CAP188/week_237/raw_data/SRR9588837_2.fastq CAP188/week_237/raw_data/SRR9588837_R2.fastq
 
+fastq-dump -O CAP188/week_106/raw_data --split-e  SRR9588832
+mv CAP188/week_106/raw_data/SRR9588832_1.fastq CAP188/week_106/raw_data/SRR9588832_R1.fastq
+mv CAP188/week_106/raw_data/SRR9588832_2.fastq CAP188/week_106/raw_dataSRR9588832_R2.fastq
+
 
 
 fastq-dump -O philippines/pX/raw_data --split-e  SRR3608622
