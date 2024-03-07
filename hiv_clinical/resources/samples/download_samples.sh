@@ -38,5 +38,18 @@ mv CAP188/week_106/raw_data/SRR9588832_1.fastq CAP188/week_106/raw_data/SRR95888
 mv CAP188/week_106/raw_data/SRR9588832_2.fastq CAP188/week_106/raw_dataSRR9588832_R2.fastq
 
 
-
 fastq-dump -O philippines/pX/raw_data --split-e  SRR3608622
+
+
+# ------ NEW
+
+
+fastq-dump -O 90802_enr_DNA_RT2/2009-09-08/raw_data --split-e  SRR7545768
+fastq-dump -O 90802_enr_DNA_RT1/2009-09-08/raw_data --split-e  SRR7545769
+
+
+mv 90802_enr_DNA_RT2/2009-09-08/raw_data/SRR7545768_1.fastq 90802_enr_DNA_RT2/2009-09-08/raw_data/SRR7545768_R1.fastq
+mv 90802_enr_DNA_RT2/2009-09-08/raw_data/SRR7545768_2.fastq 90802_enr_DNA_RT2/2009-09-08/raw_data/SRR7545768_R2.fastq
+
+mv 90802_enr_DNA_RT1/2009-09-08/raw_data/SRR7545769_1.fastq 90802_enr_DNA_RT1/2009-09-08/raw_data/SRR7545769_R1.fastq
+mv 90802_enr_DNA_RT1/2009-09-08/raw_data/SRR7545769_2.fastq 90802_enr_DNA_RT1/2009-09-08/raw_data/SRR7545769_R2.fastq
