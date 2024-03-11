@@ -53,3 +53,25 @@ mv 90802_enr_DNA_RT2/2009-09-08/raw_data/SRR7545768_2.fastq 90802_enr_DNA_RT2/20
 
 mv 90802_enr_DNA_RT1/2009-09-08/raw_data/SRR7545769_1.fastq 90802_enr_DNA_RT1/2009-09-08/raw_data/SRR7545769_R1.fastq
 mv 90802_enr_DNA_RT1/2009-09-08/raw_data/SRR7545769_2.fastq 90802_enr_DNA_RT1/2009-09-08/raw_data/SRR7545769_R2.fastq
+
+
+# ------ Download samples from the
+fastq-dump -O CAP206/week_254/raw_data --split-e  SRR9588768
+fastq-dump -O CAP206/week_216/raw_data --split-e  SRR9588769
+fastq-dump -O CAP206/week_10/raw_data --split-e  SRR9588770
+fastq-dump -O CAP206/week_273/raw_data --split-e  SRR9588771
+fastq-dump -O CAP217/week_60/raw_data --split-e  SRR9588772
+fastq-dump -O CAP217/week_31/raw_data --split-e  SRR9588773
+fastq-dump -O CAP217/week_112/raw_data --split-e  SRR9588774
+fastq-dump -O CAP217/week_87/raw_data --split-e  SRR9588775
+fastq-dump -O CAP217/week_165/raw_data --split-e  SRR9588776
+fastq-dump -O CAP217/week_138/raw_data --split-e  SRR9588777
+fastq-dump -O CAP217/week_242/raw_data --split-e  SRR9588778
+fastq-dump -O CAP217/week_282/raw_data --split-e  SRR9588779
+fastq-dump -O CAP217/week_190/raw_data --split-e  SRR9588780
+fastq-dump -O CAP217/week_218/raw_data --split-e  SRR9588781
+fastq-dump -O CAP257/week_7/raw_data --split-e  SRR9588782
+fastq-dump -O CAP257/week_30/raw_data --split-e  SRR9588783
+fastq-dump -O CAP217/week_321/raw_data --split-e  SRR9588784
+fastq-dump -O CAP217/week_358/raw_data --split-e  SRR9588785
+fastq-dump -O CAP257/week_54/raw_data --split-e  SRR9588786
