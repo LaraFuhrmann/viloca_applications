@@ -66,6 +66,7 @@ fastq-dump -O CAP217/week_112/raw_data --split-e  SRR9588774
 fastq-dump -O CAP217/week_87/raw_data --split-e  SRR9588775
 fastq-dump -O CAP217/week_165/raw_data --split-e  SRR9588776
 fastq-dump -O CAP217/week_138/raw_data --split-e  SRR9588777
+
 fastq-dump -O CAP217/week_242/raw_data --split-e  SRR9588778
 fastq-dump -O CAP217/week_282/raw_data --split-e  SRR9588779
 fastq-dump -O CAP217/week_190/raw_data --split-e  SRR9588780
@@ -75,3 +76,14 @@ fastq-dump -O CAP257/week_30/raw_data --split-e  SRR9588783
 fastq-dump -O CAP217/week_321/raw_data --split-e  SRR9588784
 fastq-dump -O CAP217/week_358/raw_data --split-e  SRR9588785
 fastq-dump -O CAP257/week_54/raw_data --split-e  SRR9588786
+
+fastq-dump -O CAP257/week_80/raw_data --split-e  SRR9588787
+
+fastq-dump -O CAP287/week_28/raw_data --split-e  SRR9588788
+fastq-dump -O CAP287/week_9/raw_data --split-e  SRR9588789
+
+fastq-dump -O CAP257/week_240/raw_data --split-e  SRR9588790
+fastq-dump -O CAP257/week_213/raw_data --split-e  SRR9588791
+fastq-dump -O CAP257/week_191/raw_data --split-e  SRR9588792
+fastq-dump -O CAP257/week_161/raw_data --split-e  SRR9588793
+fastq-dump -O CAP257/week_135/raw_data --split-e  SRR9588794
