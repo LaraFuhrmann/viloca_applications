@@ -28,11 +28,11 @@ rule all:
 # zip raw files because there is a bug
 rule zip_fastq:
     input:
-        fname_fastq_1="resources/samples/{sample}/raw_data/{filename}_1.fastq"
-        fname_fastq_2="resources/samples/{sample}/raw_data/{filename}_2.fastq"
+        fname_fastq_1="resources/samples/{sample}/raw_data/{filename}_1.fastq",
+        fname_fastq_2="resources/samples/{sample}/raw_data/{filename}_2.fastq",
     output:
-        fname_fastq_1="resources/samples/{sample}/raw_data/{filename}_1.fastq.gz"
-        fname_fastq_2="resources/samples/{sample}/raw_data/{filename}_2.fastq.gz"
+        fname_fastq_1="resources/samples/{sample}/raw_data/{filename}_1.fastq.gz",
+        fname_fastq_2="resources/samples/{sample}/raw_data/{filename}_2.fastq.gz",
     shell:
         """
         gzip -c {input.fname_fastq_1} > {output.fname_fastq_1}
