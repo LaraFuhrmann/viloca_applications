@@ -23,9 +23,10 @@ rule all:
     input:
         rules.vpipe_all.input,
         "results/all_mutations.annotated.csv",
+        "results/all_cooccurring_mutations.csv",
     default_target: True
 
-        """
+
 
 # output should go here: results/dicer_KO/results_vpipe/replicate_a/passage_10/variants
 rule run_viloca:
@@ -67,6 +68,16 @@ rule collect_annotated_mutations:
         fnames_snv_csv=expand("{dataset}/variants/snvs.annotated.csv", dataset=vpipe.datasets),
     output:
         fname_all_mutations="results/all_mutations.annotated.csv",
+    conda:
+        "envs/collect_mutations.yaml"
+    script:
+        "./scripts/collect_mutations.py"
+
+rule collect_cooccurring_mutations:
+    input:
+        fnames_snv_csv=expand("{dataset}/variants/cooccurring_mutations.csv", dataset=vpipe.datasets),
+    output:
+        fname_all_mutations="results/all_cooccurring_mutations.csv",
     conda:
         "envs/collect_mutations.yaml"
     script:
