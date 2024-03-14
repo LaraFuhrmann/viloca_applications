@@ -95,4 +95,4 @@ rule collect_coverage:
     conda:
         "envs/collect_mutations.yaml"
     script:
-        "./scripts/collect_mutations.py"
+        "./scripts/collect_coverage.py"
