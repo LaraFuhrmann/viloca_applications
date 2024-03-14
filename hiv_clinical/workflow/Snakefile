@@ -24,6 +24,7 @@ rule all:
         rules.vpipe_all.input,
         "results/all_mutations.annotated.csv",
         "results/all_cooccurring_mutations.csv",
+        "results/all_coverage.csv",
     default_target: True
 
 
@@ -78,6 +79,19 @@ rule collect_cooccurring_mutations:
         fnames_snv_csv=expand("{dataset}/variants/cooccurring_mutations.csv", dataset=vpipe.datasets),
     output:
         fname_all_mutations="results/all_cooccurring_mutations.csv",
+    conda:
+        "envs/collect_mutations.yaml"
+    script:
+        "./scripts/collect_mutations.py"
+
+
+rule collect_coverage:
+    input:
+        fnames_coverage=expand("{dataset}/alignments/coverage.tsv.gz", dataset=vpipe.datasets),
+    output:
+        fname_all_coverage="results/all_coverage.csv",
+    params:
+        samples=vpipe.datasets,
     conda:
         "envs/collect_mutations.yaml"
     script:
