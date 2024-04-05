@@ -55,7 +55,7 @@ rule collect_coverage:
     output:
         fname_all_coverage="results/all_coverage.csv",
     params:
-        samples=vpipe.datasets,
+        samples=all_samples,
     conda:
         "envs/collect_mutations.yaml"
     script:
