@@ -145,9 +145,9 @@ rule run_viloca:
         sample= lambda wc: wc.get("sample")
     conda:
         "envs/viloca.yaml"
-    threads: 15,
+    threads: 30,
     resources:
-        mem_mb=10000,
+        mem_mb=30000,
         runtime=5*24*60, # 5 days
     script:
         "scripts/run_viloca_uniform.py"
