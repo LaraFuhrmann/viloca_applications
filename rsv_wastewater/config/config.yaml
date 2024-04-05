@@ -1,0 +1,6 @@
+fname_reference: resources/NC_045512.2.fasta
+#fname_insert_bed: resources/SARS-CoV-2.v532.insert.bed
+fname_insert_bed: /cluster/project/pangolin/work-viloca/RSV-wastewater-sample-processing-VILOCA/RSVB_inserts_400_V2.1.bed
+fname_samples: /cluster/project/pangolin/work-viloca/samples.csv
+#dir_path_samples: /cluster/project/pangolin/working/samples/ # add path to samples here
+dir_path_samples: /cluster/project/pangolin/work-viloca/RSV-wastewater-sample-processing-VILOCA/results-after-V-pipe/results/

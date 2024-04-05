@@ -1,0 +1,12 @@
+name: libshorah_cmp
+channels:
+ - conda-forge
+ - bioconda
+ - defaults
+dependencies:
+ - libshorah
+ - python=3.10
+ - pandas
+ - pip
+ - pip:
+   - git+https://github.com/cbg-ethz/VILOCA@master

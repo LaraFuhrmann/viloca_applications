@@ -1,0 +1,207 @@
+import sys
+from pathlib import Path
+
+import pandas as pd
+
+from snakemake.utils import Paramspace
+from snakemake.io import Namedlist
+
+# setup config
+configfile: "config/config.yaml"
+
+fname_reference = config["fname_reference"]
+fname_insert_bed = config["fname_insert_bed"]
+fname_samples = config["fname_samples"]
+dir_path_samples = config["dir_path_samples"]
+
+df_samples = pd.read_csv(fname_samples, comment="#")
+all_samples = [f"{row[2]}/{row[3]}" for row in df_samples.itertuples()]
+
+# rule definitions
+rule all:
+    input:
+        f"results/all_mutations.csv",
+        "results/all_coverage.subsampled.csv",
+        "results/all_coverage.csv",
+        f"results/all_haplotypes.fasta",
+
+
+rule copy_coverage_file:
+    input:
+        fname_coverage=dir_path_samples+f"{{sample}}/alignments/coverage.tsv.gz",
+    output:
+        fname_coverage_zipped=f"results/{{sample}}/alignment/coverage.tsv.gz",
+    shell:
+        """
+        cp {input.fname_coverage} {output.fname_coverage_zipped}
+        """
+
+rule unzip_coverage_file:
+    input:
+        fname_coverage_zipped=f"results/{{sample}}/alignment/coverage.tsv.gz",
+    output:
+        fname_coverage=f"results/{{sample}}/alignment/coverage.tsv",
+    shell:
+        """
+        gunzip {input.fname_coverage_zipped}
+        """
+
+rule collect_coverage:
+    input:
+        fnames_coverage=[
+            f"results/{sample}/alignment/coverage.tsv"
+            for sample in all_samples
+        ],
+    output:
+        fname_all_coverage="results/all_coverage.csv",
+    params:
+        samples=vpipe.datasets,
+    conda:
+        "envs/collect_mutations.yaml"
+    script:
+        "./scripts/collect_coverage.py"
+
+
+rule provide_alignment:
+    input:
+        fname_bam=dir_path_samples+f"{{sample}}/alignments/REF_aln.bam",
+        fname_bam_idx=dir_path_samples+f"{{sample}}/alignments/REF_aln.bam.bai",
+    output:
+        fname_bam=f"results/{{sample}}/alignment/REF_aln.bam",
+        fname_bam_idx=f"results/{{sample}}/alignment/REF_aln.bam.bai",
+    shell:
+        """
+        cp {input.fname_bam} {output.fname_bam}
+        cp {input.fname_bam_idx} {output.fname_bam_idx}
+        """
+
+
+rule subsample_alignment:
+    input:
+        fname_bam=f"results/{{sample}}/alignment/REF_aln.bam",
+    output:
+        fname_bam_unsort=temp(f"results/{{sample}}/alignment/REF_aln.unsort.bam"),
+        fname_bam_unsort_sub=temp(f"results/{{sample}}/alignment/REF_aln.unsort.subsampled.bam"),
+        fname_bam=f"results/{{sample}}/alignment/REF_aln.subsampled.bam",
+    params:
+        coverage_threshold=10000, # note the acutally threshold is at 2*coverage_threshold with jvarkit biostar154220
+    conda:
+        "envs/subsampling.yaml"
+    shell:
+        """
+        jvarkit sortsamrefname --samoutputformat BAM {input.fname_bam} > {output.fname_bam_unsort}
+
+        jvarkit biostar154220 -n {params.coverage_threshold} --samoutputformat BAM {output.fname_bam_unsort} > {output.fname_bam_unsort_sub}
+
+        samtools sort -o {output.fname_bam}  {output.fname_bam_unsort_sub}
+        samtools index {output.fname_bam}
+        """
+
+
+rule stats_coverage:
+    input:
+        fname_bam=f"results/{{sample}}/alignment/REF_aln.subsampled.bam",
+    output:
+        fname_cov=f"results/{{sample}}/alignment/coverage.subsampled.tsv",
+        fname_b=f"results/{{sample}}/alignment/basecounts.subsampled.tsv",
+    conda:
+        "envs/smallgenomeutilities.yaml"
+    shell:
+        """
+        aln2basecnt -b {output.fname_b} -c {output.fname_cov} {input.fname_bam}
+        """
+
+rule collect_subsampled_coverage:
+    input:
+        fnames_coverage=[
+            f"results/{sample}/alignment/coverage.subsampled.tsv"
+            for sample in all_samples
+        ],
+    output:
+        fname_all_coverage="results/all_coverage.subsampled.csv",
+    params:
+        samples=vpipe.datasets,
+    conda:
+        "envs/collect_mutations.yaml"
+    script:
+        "./scripts/collect_coverage.py"
+
+rule remove_original_aln:
+    input:
+        fname_bam_merged=f"results/{{sample}}/alignment/REF_aln.merged.bam",
+        fname_bam=f"results/{{sample}}/alignment/REF_aln.bam",
+        fname_bam_idx=f"results/{{sample}}/alignment/REF_aln.bam.bai",
+    shell:
+        """
+        rm {input.fname_bam}
+        rm {input.fname_bam_idx}
+        """
+
+rule run_viloca:
+    input:
+        fname_bam=f"results/{{sample}}/alignment/REF_aln.merged.subsampled.bam",
+        #fname_bam=rules.alignment_merged.output.fname_bam,
+        fname_reference=fname_reference,
+        fname_insert_bed=fname_insert_bed,
+        fname_bad_samples= f"results/samples.bad_coverage.csv",
+    output:
+        fname_vcf=f"results/{{sample}}/snvs.vcf",
+        dname_work=directory(
+            f"results/{{sample}}/variant_calling/"
+        ),
+        dname_haplotypes=directory(
+            f"results/{{sample}}/variant_calling/support/"
+        ),
+    benchmark:
+        f"results/{{sample}}/benchmark.tsv"
+    params:
+        sample= lambda wc: wc.get("sample")
+    conda:
+        "envs/viloca.yaml"
+    threads: 15,
+    resources:
+        mem_mb=10000,
+        runtime=5*24*60, # 5 days
+    script:
+        "scripts/run_viloca_uniform.py"
+
+
+rule get_haplotypes:
+    input:
+        dname_haplotypes=directory(
+            f"results/{{sample}}/variant_calling/support/"
+        ),
+    output:
+        fname_haplotypes=f"results/{{sample}}/haplotypes.fasta",
+    params:
+        sample= lambda wc: wc.get("sample")
+    conda:
+        "envs/annotate_vcf.yaml"
+    script:
+        "scripts/haplotypes.py"
+
+rule collect_haplotypes:
+    input:
+        haplos=[
+            f"results/{sample}/haplotypes.fasta"
+            for sample in all_samples
+        ],
+    output:
+        fname=f"results/all_haplotypes.fasta",
+    script:
+        "scripts/combine_txt_files.py"
+
+rule collect_all_mutations:
+    input:
+        vcf_list=[
+            f"results/{sample}/snvs.vcf"
+            for sample in all_samples
+        ],
+    output:
+        fname_result_csv=f"results/all_mutations.csv",
+    params:
+        params=all_samples,
+    conda:
+        "envs/annotate_vcf.yaml"
+    script:
+        "./scripts/collect_all_annotated_mutations.py"
