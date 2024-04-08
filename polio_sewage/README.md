@@ -1,10 +1,6 @@
-In this project we are analysis sewage samples from Pakistan.
+This directory hosts all the scripts to reproduce the results of the "Polio Application" in the VILOCA manuscript.
 
-We are only interested in the polioviruses.
-
-We first run our method on ES-6 ERR4033233 (https://www.ebi.ac.uk/ena/browser/view/ERR4033233) since here fraction of poliovirus reads is rather high (--> compare to figure 3)
-Then the goal is to see which different polio strains are in the sample (--> compare to figure 5)
-
-We only analyse the VP1-region since this one is need to differentiate wildtype polio and the vaccine derived strain.
-
-As reference sequence for alignment and variant calling we use: https://www.ncbi.nlm.nih.gov/nuccore/AY184219
+In order to reproduce the results presented in the VILOCA manuscript:
+1.) Run the bash script in `resources/samples/download_samples.sh` to download the sample (ccession number `ERR4033233`)
+2.) Execute workflow and submit jobs to Slurm cluster with `./run_pipeline.sh`
+3.) The generated haplotypes are then in `results/pakistan/ES-06/variants/support/w-AY560657.1-2480-3384.reads-support.fas`. Note, as reference sequence for alignment and variant calling we use: https://www.ncbi.nlm.nih.gov/nuccore/AY184219.
