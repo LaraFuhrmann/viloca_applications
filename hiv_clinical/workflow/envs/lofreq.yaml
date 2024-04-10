@@ -1,0 +1,10 @@
+name: libshorah_cmp
+channels:
+ - conda-forge
+ - bioconda
+ - defaults
+dependencies:
+ - lofreq
+ - python=3.10
+ - pandas
+ - fuc==0.36.0

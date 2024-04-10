@@ -25,6 +25,7 @@ rule all:
         "results/all_mutations.annotated.csv",
         "results/all_cooccurring_mutations.csv",
         "results/all_coverage.csv",
+        "results/all_lofreq.csv",
     default_target: True
 
 
@@ -48,6 +49,25 @@ rule run_viloca:
         threads=10,
     script:
         "scripts/viloca.py"
+
+
+rule run_lofreq:
+    input:
+        fname_bam="results/{sample}/alignments/REF_aln.bam",
+        fname_reference=config['vpipe']['input']['reference'],
+    output:
+        fname_snv_vcf="results/{sample}/variants_lofreq/snvs.vcf",
+        fname_csv="results/{sample}/variants_lofreq/snvs.csv",
+        dname_work=directory(
+            "results/{sample}/variants_lofreq/"
+        ),
+    conda:
+        "envs/lofreq.yaml"
+    resources:
+        runtime=4*60,
+    script:
+        "scripts/lofreq.py"
+
 
 
 rule annotate_mutations:
@@ -79,6 +99,16 @@ rule collect_cooccurring_mutations:
         fnames_snv_csv=expand("{dataset}/variants/cooccurring_mutations.csv", dataset=vpipe.datasets),
     output:
         fname_all_mutations="results/all_cooccurring_mutations.csv",
+    conda:
+        "envs/collect_mutations.yaml"
+    script:
+        "./scripts/collect_mutations.py"
+
+rule collect_lofreq_mutations:
+    input:
+        fnames_snv_csv=expand("{dataset}/variants_lofreq/snvs.csv", dataset=vpipe.datasets),
+    output:
+        fname_all_mutations="results/all_lofreq.csv",
     conda:
         "envs/collect_mutations.yaml"
     script:
