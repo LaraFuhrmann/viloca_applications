@@ -20,8 +20,8 @@ def main(fname_bam, fname_reference, fname_results_snv, fname_results_csv, dname
         check=True,
     )
 
-    df_vcf = pyvcf.VcfFrame.from_file(fname_results_snv).df
-    df_vcf.to_csv(fname_results_snv)
+    df_vcf = pyvcf.VcfFrame.from_file(fname_results_snv.resolve()).df
+    df_vcf.to_csv(fname_results_csv.resolve())
 
 
 if __name__ == "__main__":
