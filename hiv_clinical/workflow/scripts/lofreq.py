@@ -13,15 +13,14 @@ def main(fname_bam, fname_reference, fname_results_snv, fname_results_csv, dname
             "-f",
             fname_reference.resolve(),
             "-o",
-            fname_result.resolve(),
+            fname_results_snv.resolve(),
             fname_bam.resolve(),
         ],
         cwd=dname_work,
         check=True,
     )
-    open(fname_result_haplos, "a").close()
 
-    df_vcf = pyvcf.VcfFrame.from_file(fname_result).df
+    df_vcf = pyvcf.VcfFrame.from_file(fname_results_snv).df
     df_vcf.to_csv(fname_results_snv)
 
 
