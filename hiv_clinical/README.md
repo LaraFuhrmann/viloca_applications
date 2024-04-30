@@ -1,36 +1,10 @@
-This project is an application of the tool VILOCA to longitudinal samples of a patient pre-treatment.
-The samples were taken from the publication Abrahams et al. (2019), Science translational medicine 11.513 (DOI: 10.1126/scitranslmed.aaw5589)
+This directory hosts all the scripts to reproduce the results of the "HIV Application" in the VILOCA manuscript.
 
+The longitudinal samples of a patient pre-treatment were taken from the publication Abrahams et al. (2019), Science translational medicine 11.513 (DOI: 10.1126/scitranslmed.aaw5589)
+https://www.science.org/doi/full/10.1126/scitranslmed.aaw5589#supplementary-materials
 
-No samples post treatment (post treatment viral load is too low??)
-""
-Plasma-derived viral RNA genomes were sequenced at multiple time points before ART [on average every 6 months starting during acute/early infection (fig. S1)], and these evolving sequences were compared to the sequences of the replication-competent OGVs from QVOAs using samples taken while on therapy (the latent reservoir).""
-
-
-We choose to analyse the samples of patient CAP217.
-
-
-CAP217_4390 : SRR9588785 (358 weeks post-infection)
-
-CAP217_2000  SRR9588770 (10 weeks post-infection )
-
-CAP217_3160   SRR9588772 (60 weeks post-infection )
-
-CAP217_4200   SRR9588774 (112 weeks post-infection)
-
-CAP217_4180  SRR9588775  (87 weeks post-infection)
-
-
-The following samples could be also interesting, as we have samples very early after infection.
-
-CAP188: https://www.ncbi.nlm.nih.gov/sra/SRX6354620[accn]
-
-Multiplexed Illumina MiSeq of HIV: 4 weeks post-infection
-
-SRR9588828
-
-
-Add samples from this publication:
-https://www.liebertpub.com/doi/10.1089/aid.2016.0151
-
-https://www.ebi.ac.uk/ena/browser/view/PRJNA320309
+Step-bystep guide to reproduce analysis and figure from the VILOCA manuscript:
+1. Git clone the repository.    
+2. Run the bash script in `resources/samples/download_samples.sh` to download the samples.   
+3. Execute workflow with `snakemake --use-conda -c1` or submit it to a Slurm cluster with `./run_pipeline.sh`.
+4. When the workflow has terminated, you can recreate the figure from the manuscript with the Jupyter notebook `workflow/notebooks/early_detection_low_freq_snvs_in_patient_samples.ipynb`. 
