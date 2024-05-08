@@ -38,6 +38,8 @@ rule run_viloca:
         dname_work=directory(
             "results/{sample}/variants/"
         ),
+    benchmark:
+        "benchmarks/{sample}/variants/benchmark.tsv"
     conda:
         "envs/viloca.yaml"
     resources:
