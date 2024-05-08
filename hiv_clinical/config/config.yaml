@@ -9,7 +9,6 @@ vpipe:
       read_length: 301
       samples_file: config/samples.tsv
       paired: true
-      fastq_suffix: _1
 
   output:
       snv: false
