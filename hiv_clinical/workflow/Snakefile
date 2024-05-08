@@ -63,6 +63,8 @@ rule run_lofreq:
         dname_work=directory(
             "results/{sample}/variants_lofreq/"
         ),
+    benchmark:
+        "benchmarks/{sample}/variants_lofreq/benchmark.tsv"
     conda:
         "envs/lofreq.yaml"
     resources:
