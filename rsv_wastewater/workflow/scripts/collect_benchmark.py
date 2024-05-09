@@ -8,7 +8,6 @@ def main(fnames, samples, fname):
     tmp = []
 
     for file, sample in zip(fnames, samples):
-        sample = sample.split('results/')[1]
         df = pd.read_csv(file, sep='\t')
         df['sample'] = sample
 
