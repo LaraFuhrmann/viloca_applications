@@ -26,6 +26,7 @@ rule all:
         "results/all_cooccurring_mutations.csv",
         "results/all_coverage.csv",
         "results/all_lofreq.csv",
+        "results/all_benchmark.csv",
     default_target: True
 
 
@@ -42,7 +43,7 @@ rule run_viloca:
             "results/{sample}/variants/"
         ),
     benchmark:
-        "benchmarks/{sample}/variants/benchmark.tsv"
+        "results/{sample}/variants/benchmark.tsv"
     conda:
         "envs/viloca.yaml"
     resources:
@@ -51,6 +52,23 @@ rule run_viloca:
         threads=10,
     script:
         "scripts/viloca.py"
+
+
+
+rule collect_benchmark:
+    input:
+        fnames=[
+            f"results/{sample}/benchmark.tsv"
+            for sample in all_samples
+        ],
+    output:
+        fname="results/all_benchmark.csv",
+    params:
+        samples=all_samples,
+    conda:
+        "envs/collect_mutations.yaml"
+    script:
+        "./scripts/collect_benchmark.py"
 
 
 rule run_lofreq:
