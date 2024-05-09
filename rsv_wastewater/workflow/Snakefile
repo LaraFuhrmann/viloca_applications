@@ -24,6 +24,7 @@ rule all:
         "results/all_coverage.subsampled.csv",
         "results/all_coverage.csv",
         f"results/all_haplotypes.fasta",
+        f"results/all_benchmark.csv",
 
 
 rule copy_coverage_file:
@@ -151,6 +152,23 @@ rule run_viloca:
         runtime=5*24*60, # 5 days
     script:
         "scripts/run_viloca_uniform.py"
+
+
+
+rule collect_benchmark:
+    input:
+        fnames=[
+            f"results/{sample}/benchmark.tsv"
+            for sample in all_samples
+        ],
+    output:
+        fname="results/all_benchmark.csv",
+    params:
+        samples=all_samples,
+    conda:
+        "envs/collect_mutations.yaml"
+    script:
+        "./scripts/collect_benchmark.py"
 
 
 rule get_haplotypes:
