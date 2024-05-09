@@ -11,8 +11,8 @@ def main(fname_bam, fname_reference, fname_results_snv, fname_results_csv, dname
 
     subprocess.run(
         [
-            "shorah",
-            "shotgun",
+            "viloca",
+            "run",
             "-b",
             fname_bam.resolve(),
             "-f",

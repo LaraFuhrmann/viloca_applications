@@ -2,7 +2,7 @@ cluster:
   mkdir -p logs/{rule} &&
   sbatch
     --parsable
-    --job-name=viloca-hiv-clinical-{rule}-{wildcards}
+    --job-name=hiv-clinical-viloca-{rule}-{wildcards}
     --cpus-per-task={threads}
     --mem-per-cpu="$(( {resources.mem_mb} / {threads} ))"
     --time="{resources.runtime}"

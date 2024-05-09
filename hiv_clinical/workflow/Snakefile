@@ -57,14 +57,9 @@ rule run_viloca:
 
 rule collect_benchmark:
     input:
-        fnames=[
-            f"results/{sample}/benchmark.tsv"
-            for sample in all_samples
-        ],
+        fnames=expand("{dataset}/variants_lofreq/snvs.csv", dataset=vpipe.datasets),[
     output:
         fname="results/all_benchmark.csv",
-    params:
-        samples=all_samples,
     conda:
         "envs/collect_mutations.yaml"
     script:
