@@ -3,8 +3,8 @@ from pathlib import Path
 
 def main(fname_bam, fname_reference, fname_results_snv, fname_results_csv, dname_work):
 
-    alpha = 0.000001
-    n_max_haplotypes = 100
+    alpha = 0.0001
+    n_max_haplotypes = 50
     n_mfa_starts = 1
 
     dname_work.mkdir(parents=True, exist_ok=True)
@@ -25,8 +25,6 @@ def main(fname_bam, fname_reference, fname_results_snv, fname_results_csv, dname
             str(n_max_haplotypes),
             "--n_mfa_starts",
             str(n_mfa_starts),
-            "-w",
-            "300",
             "--win_coverage", # coverage threshold. Omit windows with low coverage
             "20",
             "--min_windows_coverage",
