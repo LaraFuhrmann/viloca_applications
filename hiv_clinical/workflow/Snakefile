@@ -57,7 +57,7 @@ rule run_viloca:
 
 rule collect_benchmark:
     input:
-        fnames=expand("{dataset}/variants_lofreq/snvs.csv", dataset=vpipe.datasets),
+        fnames=expand("{dataset}/variants/benchmark.tsv", dataset=vpipe.datasets),
     output:
         fname="results/all_benchmark.csv",
     conda:
