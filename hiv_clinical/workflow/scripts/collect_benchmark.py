@@ -10,9 +10,9 @@ def main(fnames, fname):
     for file in fnames:
         sample = file.split('results/')[1].split('/')[0]
         df = pd.read_csv(file, sep='\t')
-        df_tmp["sample"] = file.split("/variants")[0].split("/")[-3]
-        df_tmp["patient"] = file.split("/variants")[0].split("/")[-2]
-        df_tmp["time"] = file.split("/variants")[0].split("/")[-1]
+        df["sample"] = file.split("/variants")[0].split("/")[-3]
+        df["patient"] = file.split("/variants")[0].split("/")[-2]
+        df["time"] = file.split("/variants")[0].split("/")[-1]
 
         tmp.append(df)
 
