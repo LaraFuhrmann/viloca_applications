@@ -149,7 +149,7 @@ rule run_viloca:
     threads: 30,
     resources:
         mem_mb=30000,
-        runtime=5*24*60, # 5 days
+        runtime=2*24*60, # 5 days
     script:
         "scripts/run_viloca_uniform.py"
 
