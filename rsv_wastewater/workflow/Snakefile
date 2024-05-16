@@ -85,7 +85,7 @@ rule subsample_alignment:
         fname_bam_unsort_sub=temp(f"results/{{sample}}/alignment/REF_aln.unsort.subsampled.bam"),
         fname_bam=f"results/{{sample}}/alignment/REF_aln.subsampled.bam",
     params:
-        coverage_threshold=300000, # note the acutally threshold is at 2*coverage_threshold with jvarkit biostar154220
+        coverage_threshold=1000000, # note the acutally threshold is at 2*coverage_threshold with jvarkit biostar154220
     conda:
         "envs/subsampling.yaml"
     shell:
@@ -149,7 +149,7 @@ rule run_viloca:
     threads: 30,
     resources:
         mem_mb=30000,
-        runtime=2*24*60, # 5 days
+        runtime=3*24*60, # 5 days
     script:
         "scripts/run_viloca_uniform.py"
 
