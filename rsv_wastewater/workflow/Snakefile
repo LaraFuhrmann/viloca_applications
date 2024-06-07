@@ -23,8 +23,9 @@ rule all:
         f"results/all_mutations.csv",
         "results/all_coverage.subsampled.csv",
         "results/all_coverage.csv",
-        f"results/all_haplotypes.fasta",
+        #f"results/all_haplotypes.fasta",
         f"results/all_benchmark.csv",
+        f"results/all_cooccurring_mutations.csv",
 
 
 rule copy_coverage_file:
@@ -85,7 +86,7 @@ rule subsample_alignment:
         fname_bam_unsort_sub=temp(f"results/{{sample}}/alignment/REF_aln.unsort.subsampled.bam"),
         fname_bam=f"results/{{sample}}/alignment/REF_aln.subsampled.bam",
     params:
-        coverage_threshold=1000000, # note the acutally threshold is at 2*coverage_threshold with jvarkit biostar154220
+        coverage_threshold=25000, # note the acutally threshold is at 2*coverage_threshold with jvarkit biostar154220
     conda:
         "envs/subsampling.yaml"
     shell:
@@ -134,6 +135,7 @@ rule run_viloca:
         fname_insert_bed=fname_insert_bed,
     output:
         fname_vcf=f"results/{{sample}}/snvs.vcf",
+        fname_csv=f"results/{{sample}}/variant_calling/snv/cooccurring_mutations.csv",
         dname_work=directory(
             f"results/{{sample}}/variant_calling/"
         ),
@@ -149,7 +151,7 @@ rule run_viloca:
     threads: 30,
     resources:
         mem_mb=30000,
-        runtime=3*24*60, # 5 days
+        runtime=7*24*60, # 5 days
     script:
         "scripts/run_viloca_uniform.py"
 
@@ -210,3 +212,16 @@ rule collect_all_mutations:
         "envs/annotate_vcf.yaml"
     script:
         "./scripts/collect_all_annotated_mutations.py"
+
+rule collect_cooccurring_mutations:
+    input:
+        fnames_csv=[ f"results/{sample}/variant_calling/snv/cooccurring_mutations.csv"
+            for sample in all_samples
+            #if os.path.isfile(f"results/{sample}/variant_calling/snv/cooccurring_mutations.csv")
+        ],
+    output:
+        fname_csv=f"results/all_cooccurring_mutations.csv",
+    conda:
+        "envs/collect_mutations.yaml"
+    script:
+        "./scripts/collect_cooccurring_mutations.py"
