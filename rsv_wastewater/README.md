@@ -6,3 +6,5 @@ Install conda enviroments with
 Submit workflow to Slurm cluster with:
 
 `./run_pipeline.sh`
+
+This workflow runs on snakemake v7.32.1.
