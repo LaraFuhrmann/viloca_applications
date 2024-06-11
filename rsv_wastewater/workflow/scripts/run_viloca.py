@@ -55,7 +55,7 @@ if __name__ == "__main__":
         Path(snakemake.input.fname_reference),
         Path(snakemake.input.fname_insert_bed),
         Path(snakemake.output.fname_vcf),
-        Path(snakemake.output.dname_work),
+        Path(snakemake.params.dname_work),
         snakemake.params.sample,
         snakemake.threads
     )

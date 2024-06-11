@@ -136,16 +136,16 @@ rule run_viloca:
     output:
         fname_vcf=f"results/{{sample}}/snvs.vcf",
         fname_csv=f"results/{{sample}}/variant_calling/snv/cooccurring_mutations.csv",
-        dname_work=directory(
-            f"results/{{sample}}/variant_calling/"
-        ),
         dname_haplotypes=directory(
             f"results/{{sample}}/variant_calling/support/"
         ),
     benchmark:
         f"results/{{sample}}/benchmark.tsv"
     params:
-        sample= lambda wc: wc.get("sample")
+        sample= lambda wc: wc.get("sample"),
+        dname_work=directory(
+            f"results/{{sample}}/variant_calling/"
+        ),
     conda:
         "envs/viloca.yaml"
     threads: 30,
